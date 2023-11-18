@@ -28,9 +28,13 @@ public class Controller {
         return new ResponseEntity<>(HttpStatus.OK);
     }
  
-    
-    public void getBookById(){
-
+    @GetMapping("/getBookById/{id}")
+    public ResponseEntity<Books> getBookById(@PathVariable Long id){
+        Optional<Books> bookData = bookRepo.findById(id);
+        if(bookData.isPresent()){
+            return new ResponseEntity<>(bookData.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     public void updateBookById(){
