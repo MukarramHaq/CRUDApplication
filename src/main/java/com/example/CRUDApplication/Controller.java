@@ -8,6 +8,7 @@ import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -71,7 +72,11 @@ public class Controller {
 
     }
 
-    public void deleteBookById(){
+    @DeleteMapping("/deleteBookById/{id}")
+    public ResponseEntity<Books> deleteBookById(@PathVariable Long id){
+
+        bookRepo.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
 
     }
     
