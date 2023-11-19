@@ -41,7 +41,7 @@ public class Controller {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping
+    @PostMapping("/updateBookById/{id}")
     public ResponseEntity<Books> updateBookById(@PathVariable Long id, @RequestBody Books newBookData){
         Optional<Books> oldBookData = bookRepo.findById(id);
         if(oldBookData.isPresent()){
