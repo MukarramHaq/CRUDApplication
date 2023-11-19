@@ -40,7 +40,18 @@ public class Controller {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    public void updateBookById(){
+    @PostMapping
+    public ResponseEntity<Books> updateBookById(@PathVariable Long id, @RequestBody Books newBookData){
+        Optional<Books> oldBookData = bookRepo.findById(id);
+        if(oldBookData.isPresent()){
+            Books updatedBookData = oldBookData.get();
+            updatedBookData.setAuthor(updatedBookData.getAuthor());
+            updatedBookData.setTitle(updatedBookData.getTitle());
+            Books savedData = bookRepo.save(updatedBookData);
+            return new ResponseEntity<>(savedData, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }
 
