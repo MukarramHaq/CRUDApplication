@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -43,10 +44,19 @@ public class Controller {
 
     }
 
-    @PostMapping
-    public void addBook(){
+    /* In this method we use @PostMapping annotation to create a new object in the database 
+     * We'll use the repository save()method and pass "book" as the parameter. In the function 
+     * argument it will return just the author and the title but, when we use the save() method
+     * it will return the ID, Author and Title. This annotation lets the framework know that the
+     * client sends the data to the server using HTTP requests (POST, PUT, PATCH, DELETE)
+     * 
+     * The @RequestBody annotation converts the HTTP request into a Java object
+    */
+    @PostMapping("/addBook")
+    public ResponseEntity<Books> addBook(@RequestBody Books books){
 
-        
+        Books bookObj = bookRepo.save(books);
+        return new ResponseEntity<>(bookObj, HttpStatus.OK);
 
     }
 
