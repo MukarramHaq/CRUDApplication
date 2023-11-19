@@ -26,10 +26,10 @@ public class Controller {
         List<Books> bookList = new ArrayList<>();
         bookRepo.findAll().forEach(bookList::add);
         if(bookList.isEmpty()){
-            return new ResponseEntity<>(bookList, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(bookList, HttpStatus.OK);
     }
  
     @GetMapping("/getBookById/{id}")
